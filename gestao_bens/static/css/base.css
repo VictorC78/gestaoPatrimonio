@@ -1,0 +1,8 @@
+body, html{
+    padding: 8px;
+    height: 100%;
+}
+
+main{
+    display: flex;
+}

@@ -29,7 +29,6 @@ class MovimentacaoSerializer(serializers.ModelSerializer):
     bem = serializers.StringRelatedField()
     origem = serializers.StringRelatedField()
     destino = serializers.StringRelatedField()
-    responsavel = serializers.StringRelatedField()
 
     class Meta:
         model = Movimentacao
