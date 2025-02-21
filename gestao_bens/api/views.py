@@ -42,9 +42,11 @@ class BemRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Bem.objects.all()
     serializer_class = BemSerializer
     
+
 class MovimentacaoListCreateView(generics.ListCreateAPIView):
     queryset = Movimentacao.objects.all()
     serializer_class = MovimentacaoSerializer
+
 
 # Detalhar, Atualizar e Deletar Movimentação 
 class MovimentacaoRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
