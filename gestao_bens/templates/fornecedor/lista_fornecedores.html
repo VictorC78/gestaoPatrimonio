@@ -27,10 +27,13 @@
                             <li class="breadcrumb-item active">Visão Geral</li>
                             
                         </ol>
+                        {% if request.user.is_superuser %}
+
                         <a class="nav-link" href="{% url 'fornecedor-list-create' %}"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                          Novo Fornecedor
                                     </button>
                                 </a>
+                                {% endif %}
                                 
                                     <br>
                         <div class="card mb-4">
@@ -50,7 +53,10 @@
                                             <th>CEP</th>
                                             <th>Total de Itens</th>
                                             <th>Valor em Itens</th>
+                        {% if request.user.is_superuser %}
+
                                             <th>Ações</th>
+                                            {% endif %}
                                             
                                         </tr>
                                     </thead>
@@ -64,7 +70,10 @@
                                             <th>CEP</th>
                                             <th>Total de Itens</th>
                                             <th>Valor em Itens</th>
-                                            <th>Ações</th>=
+                        {% if request.user.is_superuser %}
+
+                                            <th>Ações</th>
+                                            {% endif %}
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -78,7 +87,10 @@
                                             <td>{{ fornecedor.cep }}</td>
                                             <td>{{ fornecedor.qtd_bens }}</td>
                                             <td>R${{ fornecedor.valor_total|floatformat:2 }}</td>
+                        {% if request.user.is_superuser %}
+
                                             <td><a class="nav-link" href="{% url 'fornecedor-detail' fornecedor.id %}"><button type="button" class="btn btn-primary">Detalhar</button></a></td>
+                                            {% endif %}
                                         </tr>
                                         {% empty %}
                                         <tr>

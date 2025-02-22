@@ -52,7 +52,7 @@ class MovimentacaoSerializer(serializers.ModelSerializer):
         fields = ['bem', 'tipo_movimentacao', 'destino', 'justificativa', 'data_movimentacao']
     
     def validate(self, data):
-        # Se a movimentação for do tipo 'transferência', valida se o bem já não está no destino
+       
         if data['tipo_movimentacao'] == 'transferencia':
             bem = data['bem']
             if bem.departamento == data['destino']:
@@ -63,11 +63,10 @@ class MovimentacaoSerializer(serializers.ModelSerializer):
         bem = validated_data['bem']
         tipo_movimentacao = validated_data['tipo_movimentacao']
 
-        # Se a movimentação for uma transferência, altera o departamento do bem
         if tipo_movimentacao == 'transferencia':
             bem.departamento = validated_data['destino']
             bem.save()
 
-        # Cria e retorna a movimentação
+        
         movimentacao = Movimentacao.objects.create(**validated_data)
         return movimentacao

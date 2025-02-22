@@ -30,9 +30,11 @@
                             
                         </ol>
                         <!-- Button trigger modal -->
+                        {% if request.user.is_superuser %}
                         <a class="nav-link" href="{% url 'bem-list-create' %}"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             Novo Bem
                        </button>
+                       {% endif %}
                    </a>
                                     
                                     <br>
@@ -69,7 +71,13 @@
                                             <th>Categoria</th>
                                             <th>Fornecedor</th>
                                             <th>Departamento</th>
+                                            <th>Etiqueta</th>
+                                            <th>Nº de Tombamento</th>
+                                            <th>Estado</th>
+                                            <th>Situação</th>
+                                            <th>Data de Aquisição</th>
                                             <th>Valor</th>
+                                            <th>Quantidade</th>
                                             <th>Ações</th>
                                             
                                         </tr>
@@ -80,7 +88,13 @@
                                             <th>Categoria</th>
                                             <th>Fornecedor</th>
                                             <th>Departamento</th>
+                                            <th>Etiqueta</th>
+                                            <th>Nº de Tombamento</th>
+                                            <th>Estado</th>
+                                            <th>Situação</th>
+                                            <th>Data de Aquisição</th>
                                             <th>Valor</th>
+                                            <th>Quantidade</th>
                                             <th>Ações</th>
 
                                         </tr>
@@ -91,9 +105,15 @@
                                             <td>{{ bem.nome }}</td>
                                             <td>{{ bem.categoria_nome }}</td>
                                             <td>{{ bem.fornecedor_nome }}</td>
-                                            <td>{{ bem.departamento_nome }}</td>  <!-- Acessando o campo 'nome' do departamento -->
+                                            <td>{{ bem.departamento_nome }}</td>  
+                                            <td>{{ bem.tagRFID }}</td>  
+                                            <td>{{ bem.numero_tombamento }}</td>  
+                                            <td>{{ bem.estado_conservacao }}</td>  
+                                            <td>{{ bem.situacao }}</td>  
+                                            <td>{{ bem.data_aquisicao }}</td>  
                                             <td>R$ {{ bem.valor_aquisicao }}</td>
-                                            <td><button type="button" class="btn btn-primary">Detalhar</button></td>
+                                            <td>{{ bem.qnt }}</td>
+                                            <td><a class="nav-link" href="{% url 'bem-detail' bem.id %}"><button type="button" class="btn btn-primary">Detalhar</button></a></td>
                                         </tr>
                                     {% empty %}
                                         <tr>

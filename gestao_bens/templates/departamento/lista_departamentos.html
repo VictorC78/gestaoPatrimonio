@@ -27,10 +27,13 @@
                             <li class="breadcrumb-item active">Visão Geral</li>
                             
                         </ol>
+                        {% if request.user.is_superuser %}
+
                         <a class="nav-link" href="{% url 'departamento-list-create' %}"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                          Novo Departamento
                                     </button>
                                 </a>
+                                {% endif %}
                                 
                                     <br>
                         <div class="card mb-4">
@@ -46,7 +49,10 @@
                                             <th>Localização</th>
                                             <th>Total de Itens</th>
                                             <th>Valor em Itens</th>
+                        {% if request.user.is_superuser %}
+
                                             <th>Ações</th>
+                                            {% endif %}
                                             
                                         </tr>
                                     </thead>
@@ -56,7 +62,10 @@
                                             <th>Localização</th>
                                             <th>Total de Itens</th>
                                             <th>Valor em Itens</th>
+                        {% if request.user.is_superuser %}
+
                                             <th>Ações</th>
+                                            {% endif %}
 
                                         </tr>
                                     </tfoot>
@@ -67,7 +76,10 @@
                                             <td>{{departamento.localizacao }}</td>
                                             <td>{{departamento.qtd_bens }}</td>
                                             <td>R${{departamento.valor_total|floatformat:2 }}</td>
+                        {% if request.user.is_superuser %}
+
                                             <td><a class="nav-link" href="{% url 'departamento-detail' departamento.id %}"><button type="button" class="btn btn-primary">Detalhar</button></a></td>
+                                            {% endif %}
                                         </tr>
                                         {% empty %}
                                         <tr>

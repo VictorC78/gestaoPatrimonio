@@ -36,7 +36,7 @@ class Bem(models.Model):
     fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
     departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
     data_aquisicao = models.DateField()
-    valor_aquisicao = models.DecimalField(max_digits=10, decimal_places=2)
+    valor_aquisicao = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     estado_conservacao = models.CharField(max_length=50, choices=[
         ('novo', 'Novo'),
         ('usado', 'Usado'),
@@ -48,6 +48,7 @@ class Bem(models.Model):
         ('baixado', 'Baixado'),
         ('emprestado', 'Emprestado'),
     ])
+    qnt = models.IntegerField(default=0)
 
     def __str__(self):
         return self.nome

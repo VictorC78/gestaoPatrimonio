@@ -27,10 +27,13 @@
                             <li class="breadcrumb-item active">Visão Geral</li>
                             
                         </ol>
+                        {% if request.user.is_superuser %}
+
                         <a class="nav-link" href="{% url 'categoria-list-create' %}"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                          Nova Categoria
                                     </button>
                                 </a>
+                                {% endif %}
                                 
                                     <br>
                         <div class="card mb-4">
@@ -46,8 +49,10 @@
                                             <th>Descrição</th>
                                             <th>Total de Itens</th>
                                             <th>Valor em Itens</th>
+                        {% if request.user.is_superuser %}
+
                                             <th>Ações</th>
-                                            
+                                            {% endif %}      
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -56,8 +61,10 @@
                                             <th>Descrição</th>
                                             <th>Total de Itens</th>
                                             <th>Valor em Itens</th>
-                                            <th>Ações</th>
+                        {% if request.user.is_superuser %}
 
+                                            <th>Ações</th>
+                                            {% endif %}
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -67,7 +74,10 @@
                                             <td>{{ categoria.descricao }}</td>
                                             <td>{{ categoria.qtd_bens }}</td>
                                             <td>R${{ categoria.valor_total|floatformat:2 }}</td>
+                        {% if request.user.is_superuser %}
+
                                             <td><a class="nav-link" href="{% url 'categoria-detail' categoria.id %}"><button type="button" class="btn btn-primary">Detalhar</button></a></td>
+                                            {% endif %}
                                         </tr>
                                         {% empty %}
                                         <tr>

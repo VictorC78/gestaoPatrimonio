@@ -27,10 +27,13 @@
                             <li class="breadcrumb-item active">Visão Geral</li>
                             
                         </ol>
+                        {% if request.user.is_superuser %}
+
                         <a class="nav-link" href="{% url 'movimentacao-list-create' %}"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                          Nova Movimentação
                                     </button>
                                 </a>
+                                {% endif %}
                                 
                                     <br>
                         <div class="card mb-4">

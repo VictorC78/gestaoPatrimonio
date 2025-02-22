@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = '/usuarios/login/'
+LOGOUT_REDIRECT_URL = '/usuarios/login/'
 
 # Application definition
 
@@ -40,7 +42,9 @@ INSTALLED_APPS = [
     'api',
     'dashboard',
     'rest_framework',
+    'usuarios',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'dashboard.middleware.LoginRequiredMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'gestao_bens.urls'

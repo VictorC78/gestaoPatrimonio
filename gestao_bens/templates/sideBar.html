@@ -29,7 +29,18 @@
         </div>
         <div class="sb-sidenav-footer">
             <div class="small">Logado como:</div>
-            Victor
+            {% if user.is_authenticated %}
+    <p>{{ user.username }}</p>
+{% else %}
+    <p>Você não está autenticado.</p>
+{% endif %}
+{% if user.is_authenticated %}
+<form action="{% url 'usuarios:logout' %}" method="post">
+{% csrf_token %}
+<button type="submit" class="btn btn-danger">Sair</button>
+</form>
+{% endif %}
         </div>
+
     </nav>
 </div>
