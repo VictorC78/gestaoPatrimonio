@@ -4,8 +4,6 @@ from django.contrib.auth.forms import AuthenticationForm
 
 
 from .forms import RegisterForm
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth import update_session_auth_hash
 
 def user_login(request):
     if request.method == 'POST':
