@@ -19,11 +19,11 @@ class DepartamentoSerializer(serializers.ModelSerializer):
 
 
 class BemSerializer(serializers.ModelSerializer):
-    categoria = serializers.PrimaryKeyRelatedField(queryset=Categoria.objects.all())  # O campo para receber o ID da categoria
-    fornecedor = serializers.PrimaryKeyRelatedField(queryset=Fornecedor.objects.all())  # O campo para receber o ID do fornecedor
-    departamento = serializers.PrimaryKeyRelatedField(queryset=Departamento.objects.all())  # O campo para receber o ID do departamento
+    categoria = serializers.PrimaryKeyRelatedField(queryset=Categoria.objects.all()) 
+    fornecedor = serializers.PrimaryKeyRelatedField(queryset=Fornecedor.objects.all())  
+    departamento = serializers.PrimaryKeyRelatedField(queryset=Departamento.objects.all())  
     
-    # Campos adicionais para retornar os nomes
+    
     categoria_nome = serializers.SerializerMethodField()
     fornecedor_nome = serializers.SerializerMethodField()
     departamento_nome = serializers.SerializerMethodField()
@@ -33,18 +33,18 @@ class BemSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_categoria_nome(self, obj):
-        return obj.categoria.nome  # Retorna o nome da categoria associada ao bem
+        return obj.categoria.nome  
 
     def get_fornecedor_nome(self, obj):
-        return obj.fornecedor.nome  # Retorna o nome do fornecedor associado ao bem
+        return obj.fornecedor.nome  
 
     def get_departamento_nome(self, obj):
-        return obj.departamento.nome  # Retorna o nome do departamento associado ao bem
+        return obj.departamento.nome 
 
 
 
 class MovimentacaoSerializer(serializers.ModelSerializer):
-    # O campo 'origem' não aparece no formulário.
+    
     destino = serializers.PrimaryKeyRelatedField(queryset=Departamento.objects.all())
 
     class Meta:
