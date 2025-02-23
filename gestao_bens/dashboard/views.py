@@ -10,8 +10,8 @@ class IndexView(TemplateView):
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
-        # Substitua a requisição externa por um acesso interno à API
-        url = '/api/bens/'  # Utilize a URL interna da sua API
+        # Obtendo bens da API
+        url = '/api/bens/'  
         response = self.get_api_data(url)
 
         if response.status_code == 200:
@@ -19,15 +19,30 @@ class IndexView(TemplateView):
         else:
             bens_data = []
 
+        # Criando as listas de categorias e valores totais
+        categorias = []
+        valores_totais = []
+
+        # Obtendo categorias e seus valores totais com base nos bens
+        for categoria in Categoria.objects.all():
+            categorias.append(categoria.nome)  # Adiciona o nome da categoria
+
+            # Soma dos valores de aquisição dos bens relacionados a esta categoria
+            total_valor = categoria.bem_set.aggregate(Sum('valor_aquisicao'))['valor_aquisicao__sum'] or 0
+            valores_totais.append(total_valor)  # Adiciona o valor total de cada categoria
+
         context = super().get_context_data(**kwargs)
         context['bens'] = bens_data
+        context['categorias'] = categorias  # Passa as categorias
+        context['valores_totais'] = valores_totais  # Passa os valores totais
+
         return context
 
     def get_api_data(self, url):
-        # Método auxiliar para chamar a API interna
         request = self.request
         response = requests.get(f'http://127.0.0.1:8000{url}', cookies=request.COOKIES)
         return response
+
 
 class CategoriaListView(ListView):
     template_name = 'categoria/lista_categorias.html'
