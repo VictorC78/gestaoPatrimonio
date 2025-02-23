@@ -1,4 +1,3 @@
-
 import sys
 from django.shortcuts import redirect
 from django.http import JsonResponse
@@ -13,13 +12,12 @@ class LoginRequiredMiddleware:
         if 'test' in sys.argv:
             return self.get_response(request)
 
-        # Permitir requisições internas do próprio servidor (como no caso do requests.get)
-        if request.path.startswith('/api/') and not request.user.is_superuser:
-            if request.META.get('HTTP_REFERER') and '127.0.0.1:8000' in request.META['HTTP_REFERER']:
-                # Permite requisições internas, como as feitas pelo próprio servidor
-                return self.get_response(request)
+        # Verifica se a requisição é para a API e se o usuário não é superusuário ou não está autenticado
+        if request.path.startswith('/api/'):
 
-            return JsonResponse({'error': 'Forbidden: You must be a superuser to access this API.'}, status=403)
+            # Se o usuário não for superusuário ou não estiver autenticado
+            if not request.user.is_authenticated or not request.user.is_superuser:
+                return JsonResponse({'error': 'Forbidden: You must be a superuser to access this API.'}, status=403)
 
         allowed_paths = ['/usuarios/login/', '/usuarios/register/']
         

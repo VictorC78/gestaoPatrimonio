@@ -78,7 +78,10 @@
                                             <th>Data de Aquisição</th>
                                             <th>Valor</th>
                                             <th>Quantidade</th>
+                        {% if request.user.is_superuser %}
+
                                             <th>Ações</th>
+                                            {% endif %}
                                             
                                         </tr>
                                     </thead>
@@ -95,7 +98,10 @@
                                             <th>Data de Aquisição</th>
                                             <th>Valor</th>
                                             <th>Quantidade</th>
+                        {% if request.user.is_superuser %}
+
                                             <th>Ações</th>
+                                            {% endif %}
 
                                         </tr>
                                     </tfoot>
@@ -113,7 +119,10 @@
                                             <td>{{ bem.data_aquisicao }}</td>  
                                             <td>R$ {{ bem.valor_aquisicao }}</td>
                                             <td>{{ bem.qnt }}</td>
+                        {% if request.user.is_superuser %}
+
                                             <td><a class="nav-link" href="{% url 'bem-detail' bem.id %}"><button type="button" class="btn btn-primary">Detalhar</button></a></td>
+                                            {% endif %}
                                         </tr>
                                     {% empty %}
                                         <tr>

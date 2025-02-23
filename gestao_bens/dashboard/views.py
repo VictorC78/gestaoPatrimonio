@@ -5,24 +5,29 @@ from django.views.generic import ListView
 from api.models import Categoria, Departamento, Fornecedor, Movimentacao
 
 
-class IndexView(TemplateView): 
 
+class IndexView(TemplateView):
     template_name = 'index.html'
 
     def get_context_data(self, **kwargs):
-        
-        url = 'http://127.0.0.1:8000/api/bens/'  
-        response = requests.get(url)
-        
-        
+        # Substitua a requisição externa por um acesso interno à API
+        url = '/api/bens/'  # Utilize a URL interna da sua API
+        response = self.get_api_data(url)
+
         if response.status_code == 200:
-            bens_data = response.json()  
+            bens_data = response.json()
         else:
-            bens_data = [] 
-        
+            bens_data = []
+
         context = super().get_context_data(**kwargs)
-        context['bens'] = bens_data  
+        context['bens'] = bens_data
         return context
+
+    def get_api_data(self, url):
+        # Método auxiliar para chamar a API interna
+        request = self.request
+        response = requests.get(f'http://127.0.0.1:8000{url}', cookies=request.COOKIES)
+        return response
 
 class CategoriaListView(ListView):
     template_name = 'categoria/lista_categorias.html'

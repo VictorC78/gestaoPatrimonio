@@ -12,22 +12,22 @@ def generate_unique_cnpj():
 
 class FornecedorTests(APITestCase):
     def setUp(self):
-        # Geração de CNPJ único para o fornecedor de teste
+        
         self.fornecedor_data = {
             'nome': 'Fornecedor Teste',
-            'cnpj': generate_unique_cnpj(),  # Gera um CNPJ único
+            'cnpj': generate_unique_cnpj(),  
             'contato': '123456789',
             'endereco': 'Rua Teste, 123',
             'email': 'fornecedor@teste.com',
             'cep': '12345-678',
         }
-        # Criação do fornecedor utilizando dados de teste
+       
         self.fornecedor = Fornecedor.objects.create(**self.fornecedor_data)
 
-        # Garantindo que o CNPJ do próximo fornecedor será único
+       
         self.fornecedor_data['cnpj'] = generate_unique_cnpj()
 
-        self.url = reverse('fornecedor-list-create')  # URL para a criação de fornecedores
+        self.url = reverse('fornecedor-list-create')  
 
     def test_create_fornecedor(self):
         # Criação do fornecedor via POST
@@ -41,8 +41,7 @@ class FornecedorTests(APITestCase):
         # Obtendo a lista de fornecedores via GET
         response = self.client.get(self.url, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)  # Deve retornar 1 fornecedor
-
+        self.assertEqual(len(response.data), 1)  
     def test_get_fornecedor_detail(self):
         # Obtendo os detalhes de um fornecedor via GET
         url = reverse('fornecedor-detail', kwargs={'pk': self.fornecedor.pk})
@@ -210,9 +209,9 @@ class MovimentacaoTests(APITestCase):
             'descricao': 'Descrição do Bem',
             'numero_tombamento': '1234567890',
             'tagRFID': '123456',
-            'categoria': 1,  # Atribuindo uma instância de Categoria
-            'fornecedor': 1,  # Atribuindo uma instância de Fornecedor
-            'departamento': 1,  # Atribuindo uma instância de Departamento
+            'categoria': 1,  
+            'fornecedor': 1,  
+            'departamento': 1, 
             'data_aquisicao': '2025-01-01',
             'valor_aquisicao': 100.00,
             'estado_conservacao': 'novo',

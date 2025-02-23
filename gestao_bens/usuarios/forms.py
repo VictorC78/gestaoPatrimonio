@@ -14,10 +14,11 @@ class RegisterForm(UserCreationForm):
     )
     
     is_superuser = forms.ChoiceField(
-        choices=[(False, 'Usuário comum'), (True, 'Superusuário')],
+        choices=[(True, 'Superusuário')],
         widget=forms.Select(attrs={'class': 'select-custom'}),
         required=True,
-        label="Tipo de Conta"
+        label="Tipo de Conta",
+        initial=True  
     )
 
     class Meta:
